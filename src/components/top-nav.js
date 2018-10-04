@@ -15,7 +15,9 @@ export default function TopNav(props) {
           </a>
         </li>
         <li>
-          <a className="new" href="#">
+          <a className="new" href="#" onClick={ () => {
+            props.newGame();
+          }}>
             + New Game
           </a>
         </li>
@@ -25,5 +27,6 @@ export default function TopNav(props) {
 }
 
 TopNav.propTypes = {
-  toggleModal:PropTypes.func
+  toggleModal:PropTypes.func,
+  newGame:PropTypes.func
 };

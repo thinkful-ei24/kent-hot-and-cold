@@ -9,11 +9,16 @@ import './header.css';
 export default function Header(props) {
   let modalElement;
   if (props.modal) {
-    modalElement = <InfoModal toggleModal={() => props.toggleModal()}/>;
+    modalElement = <InfoModal
+      toggleModal={() => props.toggleModal()}
+    />;
   }
   return (
     <header>
-      <TopNav toggleModal={() => props.toggleModal()}/>
+      <TopNav
+        toggleModal={() => props.toggleModal()}
+        newGame={() => props.newGame()}
+      />
       {modalElement}
       <h1>HOT or COLD</h1>
     </header>
@@ -22,5 +27,6 @@ export default function Header(props) {
 
 Header.propTypes = {
   modal:PropTypes.bool,
-  toggleModal:PropTypes.func
+  toggleModal:PropTypes.func,
+  newGame: PropTypes.func
 };
