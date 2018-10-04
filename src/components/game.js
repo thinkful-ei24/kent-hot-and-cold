@@ -10,8 +10,9 @@ export default class Game extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      currentGuess: 0,
-      guesses: [10, 15, 25]
+      currentGuess: null,
+      guesses: [],
+      feedback: 'Make your guess!'
     };
   }
 
@@ -29,9 +30,21 @@ export default class Game extends React.Component {
 
   addGuess(e) {
     e.preventDefault();
-    this.setState({
-      guesses: [...this.state.guesses, this.state.currentGuess]
-    });
+    document.getElementById('userGuess').value = '';
+    const guess = this.state.currentGuess;
+    if (this.state.guesses.includes(guess)) {
+      this.setState({
+        feedback: 'You already guessed that number!'
+      });
+    } else if (guess > 100 || guess < 1 || guess === null) {
+      this.setState({
+        feedback: 'Please guess a number between 1 to 100'
+      });
+    } else {
+      this.setState({
+        guesses: [...this.state.guesses, guess]
+      });
+    }
   }
 
   render() {
@@ -39,7 +52,7 @@ export default class Game extends React.Component {
       <div>
         <Header toggleModal={() => this.toggleModal()} modal={this.state.modal} />
         <GuessSection
-          feedback="Make your guess!"
+          feedback={this.state.feedback}
           setCurrentGuess={value => this.setCurrentGuess(value)}
           addGuess={e => this.addGuess(e)}
         />
