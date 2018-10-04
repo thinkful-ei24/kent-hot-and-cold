@@ -10,6 +10,7 @@ export default class Game extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      currentGuess: 0,
       guesses: [10, 15, 25]
     };
   }
@@ -20,11 +21,28 @@ export default class Game extends React.Component {
     });
   }
 
+  setCurrentGuess(value) {
+    this.setState({
+      currentGuess: Number(value)
+    });
+  }
+
+  addGuess(e) {
+    e.preventDefault();
+    this.setState({
+      guesses: [...this.state.guesses, this.state.currentGuess]
+    });
+  }
+
   render() {
     return (
       <div>
         <Header toggleModal={() => this.toggleModal()} modal={this.state.modal} />
-        <GuessSection feedback="Make your guess!" />
+        <GuessSection
+          feedback="Make your guess!"
+          setCurrentGuess={value => this.setCurrentGuess(value)}
+          addGuess={e => this.addGuess(e)}
+        />
         <GuessCount count={this.state.guesses.length} />
         <GuessList guesses={this.state.guesses} />
       </div>
